@@ -1,7 +1,23 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
+import {
+  IonApp,
+  IonTabs,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonIcon,
+  IonLabel,
+  setupIonicReact
+} from '@ionic/react';
+
+import { calendar, pieChart, person, today } from 'ionicons/icons';
+
+import Today from './pages/Today';
+import Calendar from './pages/Calendar';
+import Analytics from './pages/Analytics';
+import Profile from './pages/Profile';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -32,22 +48,27 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Login from './pages/Login';
+import AuthRoutes from './routes/AuthRoutes';
+import AppRoutes from './routes/AppRoutes';
+import { useAuth } from './hooks/useAuth';
+import AuthCallback from './pages/AuthCallback';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const { user, loading } = useAuth ();
+
+  if (loading) return null;
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+		<Route exact path="/auth/callback" component={AuthCallback} />
+        {!user ? <AuthRoutes /> : <AppRoutes />}
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

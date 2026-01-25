@@ -17,6 +17,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 /.nx
 /.nx/cache
 /.vscode/*
@@ -29,3 +30,6 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
+
+package-lock.json
+yarn.lock
