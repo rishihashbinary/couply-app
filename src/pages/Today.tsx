@@ -6,14 +6,24 @@ import {
   IonRow,
   IonCol,
   IonCard,
-  IonIcon
+  IonIcon,
+  IonModal,
+  IonDatetime,
+  IonButton,
+  IonInput,
+  IonTextarea
 } from '@ionic/react';
-import { calendarOutline } from 'ionicons/icons';
+import {
+  calendarOutline,
+  chevronDownOutline
+} from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { ProfilesService } from '../services/Profiles';
+import type { Profile } from '../models/Profile';
+import { JournalEntriesService } from '../services/JournalEntriesService';
+
 // import { JournalService } from '../services/journal.service';
-import type { Profile } from '../models/Profiles';
 
 type Mood = 'Happy' | 'Peaceful' | 'Neutral' | 'Difficult';
 
@@ -26,38 +36,87 @@ const moods: { key: Mood; emoji: string; color: string }[] = [
 
 const Today: React.FC = () => {
   const { user } = useAuth();
+
   const [profile, setProfile] = useState<Profile | null>(null);
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  const todayStr = new Date().toLocaleDateString(undefined, {
+  const [selectedDate, setSelectedDate] = useState<string>(
+    new Date().toISOString()
+  );
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+  const [loadingMood, setLoadingMood] = useState(false);
+
+  // TEMP streak (replace with backend later)
+  const [streak] = useState<number>(0);
+
+  const maxDate = new Date().toISOString().split('T')[0];
+
+  const formattedDate = new Date(selectedDate).toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
     day: 'numeric'
   });
 
+  const isPastDate = () => {
+    const selected = new Date(selectedDate);
+    const today = new Date();
+
+    selected.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    return selected < today;
+  };
+
   useEffect(() => {
     if (!user) return;
 
-    const init = async () => {
+    const load = async () => {
+      setLoadingMood(true);
+
       const p = await ProfilesService.getById(user.id);
       setProfile(p);
 
-    //   const entry = await JournalService.getToday(user.id);
-    //   setSelectedMood(entry?.mood ?? null);
+      // 🔹 Fetch mood for selected date
+      // const entry = await JournalService.getByDate(
+      //   user.id,
+      //   selectedDate.split('T')[0]
+      // );
 
+      // TEMP until service exists
+      const entry = null;
+
+      setSelectedMood(entry?.mood ?? null);
+
+      setLoadingMood(false);
       setLoading(false);
     };
 
-    init().catch(console.error);
-  }, [user]);
+    load().catch(console.error);
+  }, [user, selectedDate]);
 
   const onMoodSelect = async (mood: Mood) => {
     if (!user) return;
 
     setSelectedMood(mood);
-    // await JournalService.saveTodayMood(user.id, mood);
+
+    await JournalEntriesService.upsertMood({
+      userId: user.id,
+      entryDate: selectedDate.split('T')[0],
+      mood,
+	  moodSource: 'self' // TEMP fixed value
+    });
   };
+
+  const getGreeting = () => {
+  const hour = new Date().getHours();
+
+  if (hour >= 5 && hour < 12) return 'Good morning';
+  if (hour >= 12 && hour < 17) return 'Good afternoon';
+  if (hour >= 17 && hour < 21) return 'Good evening';
+  return 'Good night';
+};
 
   if (loading) return null;
 
@@ -68,7 +127,7 @@ const Today: React.FC = () => {
         {/* Greeting */}
         <IonText>
           <p style={{ color: '#777', marginBottom: 4 }}>
-            Good evening
+            {getGreeting()}
           </p>
           <h1 style={{ marginTop: 0 }}>
             {profile?.name ?? ''}
@@ -82,21 +141,70 @@ const Today: React.FC = () => {
           </h3>
         </IonText>
 
-        {/* Date */}
-        <div style={{ display: 'flex', alignItems: 'center', color: '#777' }}>
-          <IonIcon icon={calendarOutline}></IonIcon>
-          <span style={{ marginLeft: 8 }}>{todayStr}</span>
+        {/* Streak Indicator */}
+        {/* <IonText>
+          <p
+            style={{
+              color: '#6c6c70',
+              fontSize: 14,
+              marginTop: 6
+            }}
+          >
+            {streak > 0
+              ? `🌱 ${streak}-day reflection streak`
+              : 'Every day is a fresh start 🤍'}
+          </p>
+        </IonText> */}
+
+        {/* Revisiting Memory */}
+        {isPastDate() && (
+          <IonText>
+            <p
+              style={{
+                color: '#8e8e93',
+                fontSize: 14,
+                marginTop: 4
+              }}
+            >
+              You’re revisiting a memory 🕊️
+            </p>
+          </IonText>
+        )}
+
+        {/* Clickable Date */}
+        <div
+          onClick={() => setShowDatePicker(true)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            color: '#777',
+            marginTop: 6,
+            cursor: 'pointer'
+          }}
+        >
+          <IonIcon icon={calendarOutline} />
+          <span style={{ marginLeft: 8 }}>{formattedDate}</span>
+          <IonIcon
+            icon={chevronDownOutline}
+            style={{ marginLeft: 6, fontSize: 14 }}
+          />
         </div>
 
-        {/* Helper text */}
-        <IonText>
+        {/* Helper Text */}
+        {/* <IonText>
           <p style={{ color: '#999', marginTop: 8 }}>
             There’s no right or wrong answer.
           </p>
-        </IonText>
+        </IonText> */}
 
         {/* Mood Grid */}
-        <IonGrid style={{ marginTop: '1.5rem' }}>
+        <IonGrid
+          style={{
+            marginTop: '1.5rem',
+            opacity: loadingMood ? 0.5 : 1,
+            pointerEvents: loadingMood ? 'none' : 'auto'
+          }}
+        >
           <IonRow>
             {moods.map(({ key, emoji, color }) => {
               const isSelected = selectedMood === key;
@@ -108,18 +216,26 @@ const Today: React.FC = () => {
                     onClick={() => onMoodSelect(key)}
                     style={{
                       textAlign: 'center',
-                      padding: '1.2rem',
+                      padding: '1rem',
                       borderRadius: 16,
-                      border: `2px solid ${
-                        isSelected ? color : '#e0e0e0'
-                      }`,
+                    //   border: `2px solid ${
+                    //     isSelected ? color : '#e0e0e0'
+                    //   }`,
                       background: isSelected
                         ? `${color}22`
                         : '#fff',
                       transition: 'all 0.2s ease'
                     }}
                   >
-                    <div style={{ fontSize: 36 }}>{emoji}</div>
+                    <div
+                      style={{
+                        fontSize: 36,
+                        transform: isSelected ? 'scale(1.1)' : 'scale(1)',
+                        transition: 'transform 0.2s ease'
+                      }}
+                    >
+                      {emoji}
+                    </div>
                     <IonText>
                       <p style={{ marginTop: 8 }}>{key}</p>
                     </IonText>
@@ -129,6 +245,43 @@ const Today: React.FC = () => {
             })}
           </IonRow>
         </IonGrid>
+
+		{/* Notes */}
+
+		<IonTextarea
+        id="notes-input"
+        label="Notes"
+        labelPlacement="floating"
+        counter={true}
+        maxlength={200}
+		rows={4}
+        counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}
+      ></IonTextarea>
+
+        {/* Date Picker Modal */}
+        <IonModal
+          isOpen={showDatePicker}
+          onDidDismiss={() => setShowDatePicker(false)}
+        >
+          <IonContent className="ion-padding">
+            <IonDatetime
+              presentation="date"
+              value={selectedDate}
+              max={maxDate}
+              onIonChange={(e) =>
+                setSelectedDate(e.detail.value as string)
+              }
+            />
+
+            <IonButton
+              expand="block"
+              style={{ marginTop: 16 }}
+              onClick={() => setShowDatePicker(false)}
+            >
+              Done
+            </IonButton>
+          </IonContent>
+        </IonModal>
 
       </IonContent>
     </IonPage>

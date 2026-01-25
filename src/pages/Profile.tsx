@@ -12,7 +12,7 @@ import { logOutOutline, cafeOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { ProfilesService } from '../services/Profiles';
 import { useAuth } from '../hooks/useAuth';
-import type { Profile } from '../models/Profiles';
+import type { Profile } from '../models/Profile';
 import { signOut } from '../services/Auth';
 import { personCircleOutline } from 'ionicons/icons';
 

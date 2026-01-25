@@ -7,7 +7,7 @@ import {
 import { useEffect } from 'react';
 import { supabase } from '../services/SupabaseClient';
 import { ProfilesService } from '../services/Profiles';
-import type { Profile } from '../models/Profiles';
+import type { Profile } from '../models/Profile';
 
 const AuthCallback: React.FC = () => {
 

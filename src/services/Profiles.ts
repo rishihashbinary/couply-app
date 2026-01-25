@@ -1,6 +1,6 @@
 // profiles.service.ts
 import { supabase } from './SupabaseClient';
-import { Profile, ProfileMapper } from '../models/Profiles';
+import { Profile, ProfileMapper } from '../models/Profile';
 
 export const ProfilesService = {
 
