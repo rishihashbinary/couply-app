@@ -1,0 +1,83 @@
+.calendar-page {
+  background: #fff;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 12px;
+}
+
+/* ---- Calendar ---- */
+
+.calendar-wrapper {
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 10px;
+}
+
+.mood-calendar {
+  --background: white;
+}
+
+/* Target each day cell */
+ion-datetime::part(calendar-day) {
+  position: relative;
+}
+
+/* Mood dot */
+ion-datetime::part(calendar-day)::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+/* Mood colors */
+:root {
+  --mood-happy: #34c759;
+  --mood-peaceful: #4c8dff;
+  --mood-neutral: #9e9e9e;
+  --mood-difficult: #ff5a5f;
+}
+
+/* Legend */
+
+.legend {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.happy {
+  background: var(--mood-happy);
+}
+
+.dot.peaceful {
+  background: var(--mood-peaceful);
+}
+
+.dot.neutral {
+  background: var(--mood-neutral);
+}
+
+.dot.difficult {
+  background: var(--mood-difficult);
+}
