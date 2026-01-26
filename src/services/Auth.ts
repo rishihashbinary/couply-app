@@ -5,8 +5,8 @@ export const signInWithGoogle = async () => {
 	await supabase.auth.signInWithOAuth({
 		provider: 'google',
 		options: {
-			// redirectTo: `${window.location.origin}/auth/callback`
-			redirectTo: `app.couplia://auth/callback`
+			redirectTo: `${window.location.origin}/auth/callback`
+			// redirectTo: `app.couplia://auth/callback`
 		}
 	});
 };
