@@ -162,26 +162,27 @@ const Today: React.FC = () => {
 	return (
 		<IonPage>
 			<IonContent fullscreen className="ion-padding">
+				<div className="today-background" />
+				<div className="today-block frosted">
+					{/* Greeting */}
+					<IonText>
+						<p style={{ color: '#777', marginBottom: 4 }}>
+							{getGreeting()}
+						</p>
+						<h1 style={{ marginTop: 0 }}>
+							{profile?.name ?? ''}
+						</h1>
+					</IonText>
 
-				{/* Greeting */}
-				<IonText>
-					<p style={{ color: '#777', marginBottom: 4 }}>
-						{getGreeting()}
-					</p>
-					<h1 style={{ marginTop: 0 }}>
-						{profile?.name ?? ''}
-					</h1>
-				</IonText>
+					{/* Question */}
+					<IonText>
+						<h3 style={{ marginTop: '1.5rem' }}>
+							How did the day feel?
+						</h3>
+					</IonText>
 
-				{/* Question */}
-				<IonText>
-					<h3 style={{ marginTop: '1.5rem' }}>
-						How did the day feel?
-					</h3>
-				</IonText>
-
-				{/* Streak Indicator */}
-				{/* <IonText>
+					{/* Streak Indicator */}
+					{/* <IonText>
           <p
             style={{
               color: '#6c6c70',
@@ -195,38 +196,39 @@ const Today: React.FC = () => {
           </p>
         </IonText> */}
 
-				{/* Revisiting Memory */}
-				{isPastDate() && (
-					<IonText>
-						<p
-							style={{
-								color: '#8e8e93',
-								fontSize: 14,
-								marginTop: 4
-							}}
-						>
-							You’re revisiting a memory 🕊️
-						</p>
-					</IonText>
-				)}
+					{/* Revisiting Memory */}
+					{isPastDate() && (
+						<IonText>
+							<p
+								style={{
+									color: '#8e8e93',
+									fontSize: 14,
+									marginTop: 4
+								}}
+							>
+								You’re revisiting a memory 🕊️
+							</p>
+						</IonText>
+					)}
 
-				{/* Clickable Date */}
-				<div
-					onClick={() => setShowDatePicker(true)}
-					style={{
-						display: 'flex',
-						alignItems: 'center',
-						color: '#777',
-						marginTop: 6,
-						cursor: 'pointer'
-					}}
-				>
-					<IonIcon icon={calendarOutline} />
-					<span style={{ marginLeft: 8 }}>{formattedDate}</span>
-					<IonIcon
-						icon={chevronDownOutline}
-						style={{ marginLeft: 6, fontSize: 14 }}
-					/>
+					{/* Clickable Date */}
+					<div
+						onClick={() => setShowDatePicker(true)}
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							color: '#777',
+							marginTop: 6,
+							cursor: 'pointer'
+						}}
+					>
+						<IonIcon icon={calendarOutline} />
+						<span style={{ marginLeft: 8 }}>{formattedDate}</span>
+						<IonIcon
+							icon={chevronDownOutline}
+							style={{ marginLeft: 6, fontSize: 14 }}
+						/>
+					</div>
 				</div>
 
 				{/* Helper Text */}
@@ -263,24 +265,24 @@ const Today: React.FC = () => {
 						})}
 					</IonRow>
 				</IonGrid>
+				<div className="today-block frosted">
+					{/* Notes */}
 
-				{/* Notes */}
+					<IonTextarea
+						disabled={!selectedMood}
+						id="notes-input"
+						label="Notes"
+						labelPlacement="floating"
+						counter={true}
+						maxlength={200}
+						rows={4}
+						counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}
+						value={notes}
+						onIonChange={e => setNotes(e.detail.value!)}
+					></IonTextarea>
 
-				<IonTextarea
-					disabled={!selectedMood}
-					id="notes-input"
-					label="Notes"
-					labelPlacement="floating"
-					counter={true}
-					maxlength={200}
-					rows={4}
-					counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}
-					value={notes}
-					onIonChange={e => setNotes(e.detail.value!)}
-				></IonTextarea>
-
-				<IonButton className={`save-button ${saving ? 'saving' : ''}`} disabled={!selectedMood} onClick={onSave} expand="block" style={{ marginTop: 10 }}> <IonIcon style={{ marginRight: 10 }} icon={heart} /> Save</IonButton>
-
+					<IonButton className={`save-button ${saving ? 'saving' : ''}`} disabled={!selectedMood} onClick={onSave} expand="block" style={{ marginTop: 10 }}> <IonIcon style={{ marginRight: 10 }} icon={heart} /> Save</IonButton>
+				</div>
 				{/* Date Picker Modal */}
 				<IonModal
 					isOpen={showDatePicker}
@@ -298,7 +300,7 @@ const Today: React.FC = () => {
 
 						<IonButton
 							expand="block"
-							style={{ marginTop: 16 }}
+							style={{ marginTop: 16, opacity: 1 }}
 							onClick={() => setShowDatePicker(false)}
 						>
 							Done

@@ -65,3 +65,51 @@ ion-header {
 .safe-content {
 	--padding-bottom: calc(56px + env(safe-area-inset-bottom));
 }
+
+.today-page {
+	position: relative;
+	background: transparent;
+}
+
+/* Full screen background */
+.today-background {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+
+	background-image: url('/public/assets/backgrounds/6452058.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+}
+
+/* Content above background */
+.today-content {
+	position: relative;
+	z-index: 1;
+
+	/* Make content transparent */
+	--background: transparent;
+}
+
+.today-block {
+	position: relative;
+	z-index: 1;
+	margin-bottom: 16px;
+	background-color: white;
+	padding: 20px;
+	color: black;
+	border-radius: 8px;
+}
+
+.frosted {
+	background: rgba(255, 255, 255, 0.75);
+	backdrop-filter: blur(12px) saturate(120%);
+	-webkit-backdrop-filter: blur(12px) saturate(120%);
+
+	border: 1px solid rgba(255, 255, 255, 0.35);
+
+	box-shadow:
+		0 8px 24px rgba(0, 0, 0, 0.15);
+}

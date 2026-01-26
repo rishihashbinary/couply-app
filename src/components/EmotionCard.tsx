@@ -18,8 +18,8 @@ const EmotionCard: React.FC<EmotionCardProps> = ({ label, emoji, color, isSelect
 			style={{
 				textAlign: 'center',
 				padding: '1rem',
-				borderRadius: 16,
-				background: isSelected ? `${color}22` : '#fff',
+				borderRadius: 8,
+				background: isSelected ? `${color}` : '#fff',
 				transition: 'all 0.2s ease',
 			}}
 		>
@@ -33,7 +33,7 @@ const EmotionCard: React.FC<EmotionCardProps> = ({ label, emoji, color, isSelect
 				{emoji}
 			</div>
 			<IonText>
-				<p style={{ marginTop: 8 }}>{label}</p>
+				<p style={{ marginTop: 8, color: isSelected ? '#fff' : '#000' }}>{label}</p>
 			</IonText>
 		</IonCard>
 	);
