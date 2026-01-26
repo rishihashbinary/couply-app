@@ -3,9 +3,9 @@ http://ionicframework.com/docs/theming/ */
 /* src/theme/variables.css */
 
 :root {
-  --ion-background-color: #ffffff;
-  --ion-text-color: #000000;
+	--ion-background-color: #ffffff;
+	--ion-text-color: #000000;
 
-  --ion-color-primary: #f293a4;
-  --ion-color-primary-rgb: 242, 147, 164;
+	--ion-color-primary: #ec414fd6;
+	--ion-color-primary-rgb: 242, 147, 164;
 }
