@@ -25,6 +25,7 @@ import { ProfilesService } from '../services/Profiles';
 import type { Profile } from '../models/Profile';
 import { JournalEntriesService } from '../services/JournalEntriesService';
 import { Mood } from '../models/JournalEntry';
+import EmotionCard from '../components/EmotionCard';
 
 // import { JournalService } from '../services/journal.service';
 
@@ -39,7 +40,7 @@ const Today: React.FC = () => {
 	const { user } = useAuth();
 
 	const [profile, setProfile] = useState<Profile | null>(null);
-	const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
+	const [selectedMood, setSelectedMood] = useState<Mood>();
 
 	const [selectedDate, setSelectedDate] = useState<string>(
 		new Date().toISOString()
@@ -89,7 +90,7 @@ const Today: React.FC = () => {
 			await JournalEntriesService.upsertMood({
 				userId: user.id,
 				entryDate: selectedDate.split('T')[0],
-				mood: selectedMood,
+				mood: selectedMood ?? 'Neutral',
 				notes,
 				moodSource: 'self' // TEMP fixed value
 			});
@@ -128,9 +129,9 @@ const Today: React.FC = () => {
 			// );
 
 			// TEMP until service exists
-			const entry = null;
+			// const entry = null;
 
-			setSelectedMood(entry?.mood ?? null);
+			// setSelectedMood(entry?.mood ?? null);
 
 			setLoadingMood(false);
 			setLoading(false);
@@ -246,38 +247,17 @@ const Today: React.FC = () => {
 					<IonRow>
 						{moods.map(({ key, emoji, color }) => {
 							const isSelected = selectedMood === key;
-
+							console.log('Rendering mood:', key, 'isSelected:', isSelected);
 							return (
 								<IonCol size="6" key={key}>
-									<IonCard
-										button
-										onClick={() => onMoodSelect(key)}
-										style={{
-											textAlign: 'center',
-											padding: '1rem',
-											borderRadius: 16,
-											//   border: `2px solid ${
-											//     isSelected ? color : '#e0e0e0'
-											//   }`,
-											background: isSelected
-												? `${color}22`
-												: '#fff',
-											transition: 'all 0.2s ease'
-										}}
-									>
-										<div
-											style={{
-												fontSize: 36,
-												transform: isSelected ? 'scale(1.1)' : 'scale(1)',
-												transition: 'transform 0.2s ease'
-											}}
-										>
-											{emoji}
-										</div>
-										<IonText>
-											<p style={{ marginTop: 8 }}>{key}</p>
-										</IonText>
-									</IonCard>
+
+									<EmotionCard
+										label={key}
+										emoji={emoji}
+										color={color}
+										isSelected={isSelected}
+										onMoodSelect={(key: string) => setSelectedMood(key as Mood)}
+									/>
 								</IonCol>
 							);
 						})}

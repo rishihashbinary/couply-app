@@ -1,8 +1,8 @@
 import {
-  IonPage,
-  IonContent,
-  IonSpinner,
-  IonText
+	IonPage,
+	IonContent,
+	IonSpinner,
+	IonText
 } from '@ionic/react';
 import { useEffect } from 'react';
 import { supabase } from '../services/SupabaseClient';
@@ -11,59 +11,67 @@ import type { Profile } from '../models/Profile';
 
 const AuthCallback: React.FC = () => {
 
-  useEffect(() => {
-    const handleAuthCallback = async () => {
-      try {
-        // 1. Get session (Supabase already handled Google OAuth)
-        const { data, error } = await supabase.auth.getSession();
+	console.log('AuthCallback mounted');
 
-        if (error || !data.session) {
-          throw error ?? new Error('No session found');
-        }
+	useEffect(() => {
+		const handleAuthCallback = async () => {
+			try {
+				// 1. Get session (Supabase already handled Google OAuth)
+				const { data, error } = await supabase.auth.getSession();
 
-        const user = data.session.user;
+				console.log('Session Data', JSON.stringify(data));
 
-        // 2. Build domain Profile (camelCase, app-friendly)
-        const profile: Profile = {
-          id: user.id,
-          name: user.user_metadata?.full_name ?? '',
-          email: user.email ?? '',
-          avatarUrl: user.user_metadata?.avatar_url
-        };
+				if (error || !data.session) {
+					console.error('Session error or no session found');
+					throw error ?? new Error('No session found');
+				}
 
-		console.log('Authenticated user:', profile);
+				const user = data.session.user;
 
-        // 3. Persist via service (mapper used internally)
-        await ProfilesService.upsert(profile);
+				console.log('Session User', user);
 
-		console.log('Profile upserted successfully');
+				// 2. Build domain Profile (camelCase, app-friendly)
+				const profile: Profile = {
+					id: user.id,
+					name: user.user_metadata?.full_name ?? '',
+					email: user.email ?? '',
+					avatarUrl: user.user_metadata?.avatar_url
+				};
 
-        // 4. Redirect to app shell
-        window.location.replace('/today');
+				console.log('Authenticated user:', profile);
 
-      } catch (err) {
-        console.error('Auth callback failed', err);
-        // Optional: redirect to login with error state
-        window.location.replace('/login');
-      }
-    };
+				// 3. Persist via service (mapper used internally)
+				await ProfilesService.upsert(profile);
 
-    handleAuthCallback();
-  }, []);
+				console.log('Profile upserted successfully');
 
-  return (
-    <IonPage>
-      <IonContent
-        fullscreen
-        className="ion-padding ion-text-center"
-      >
-        <IonSpinner name="crescent" />
-        <IonText className="ion-margin-top">
-          <p>Setting things up…</p>
-        </IonText>
-      </IonContent>
-    </IonPage>
-  );
+				// 4. Redirect to app shell
+				window.location.replace('/today');
+
+			} catch (err) {
+				console.error('Error during auth callback handling:', err);
+				console.error('Auth callback failed', err);
+				// Optional: redirect to login with error state
+				window.location.replace('/login');
+			}
+		};
+
+		handleAuthCallback();
+	}, []);
+
+	return (
+		<IonPage>
+			<IonContent
+				fullscreen
+				className="ion-padding ion-text-center"
+			>
+				<IonSpinner name="crescent" />
+				<IonText className="ion-margin-top">
+					<p>Setting things up…</p>
+				</IonText>
+			</IonContent>
+		</IonPage>
+	);
 };
 
 export default AuthCallback;

@@ -16,3 +16,52 @@ ion-button {
 	--background-focused: var(--background);
 	--ripple-color: transparent;
 }
+
+/* Global safe-area support for Android & iOS */
+:root {
+	--safe-top: env(safe-area-inset-top);
+	--safe-bottom: env(safe-area-inset-bottom);
+}
+
+/* Apply to all pages */
+ion-content {
+	--padding-top: var(--safe-top);
+	--padding-bottom: var(--safe-bottom);
+	--padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Fix bottom navigation / tabs */
+ion-tab-bar,
+ion-footer {
+	padding-bottom: var(--safe-bottom);
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Optional: headers if you use translucent toolbars */
+ion-header {
+	padding-top: var(--safe-top);
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+	body {
+		/* --ion-color-primary: #7c8cff; */
+		--ion-color-primary-rgb: 124, 140, 255;
+
+		--ion-background-color: #0f1115;
+		--ion-background-color-rgb: 15, 17, 21;
+
+		--ion-text-color: #e6e6e6;
+		--ion-text-color-rgb: 230, 230, 230;
+
+		--ion-card-background: #181b22;
+		--ion-item-background: #181b22;
+
+		--ion-border-color: #2a2e38;
+	}
+}
+
+.safe-content {
+	--padding-bottom: calc(56px + env(safe-area-inset-bottom));
+}
