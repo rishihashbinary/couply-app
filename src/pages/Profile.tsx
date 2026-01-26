@@ -25,6 +25,7 @@ const ProfilePage: React.FC = () => {
 	const [isInstalled, setIsInstalled] = useState(false);
 
 	useEffect(() => {
+		console.log('Setting up PWA install prompt listener.');
 		const beforeInstallHandler = (e: any) => {
 			e.preventDefault();
 			setInstallPrompt(e);
