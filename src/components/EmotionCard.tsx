@@ -10,7 +10,7 @@ interface EmotionCardProps {
 }
 
 const EmotionCard: React.FC<EmotionCardProps> = ({ label, emoji, color, isSelected, onMoodSelect }) => {
-	console.log('Label in EmotionCard:', label, emoji, color, isSelected);
+	// console.log('Label in EmotionCard:', label, emoji, color, isSelected);
 	return (
 		<IonCard
 			button

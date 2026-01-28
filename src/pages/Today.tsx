@@ -249,7 +249,7 @@ const Today: React.FC = () => {
 					<IonRow>
 						{moods.map(({ key, emoji, color }) => {
 							const isSelected = selectedMood === key;
-							console.log('Rendering mood:', key, 'isSelected:', isSelected);
+							// console.log('Rendering mood:', key, 'isSelected:', isSelected);
 							return (
 								<IonCol size="6" key={key}>
 
@@ -278,7 +278,8 @@ const Today: React.FC = () => {
 						rows={4}
 						counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}
 						value={notes}
-						onIonChange={e => setNotes(e.detail.value!)}
+						onChange={e => setNotes((e.target as HTMLIonTextareaElement).value ?? '')}
+					// onIonChange={e => { console.log(e.detail.value); setNotes(e.detail.value!) }}
 					></IonTextarea>
 
 					<IonButton className={`save-button ${saving ? 'saving' : ''}`} disabled={!selectedMood} onClick={onSave} expand="block" style={{ marginTop: 10 }}> <IonIcon style={{ marginRight: 10 }} icon={heart} /> Save</IonButton>

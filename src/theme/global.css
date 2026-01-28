@@ -1,5 +1,8 @@
 .save-button {
 	transition: transform 0.15s ease, opacity 0.15s ease;
+	height: 40px;
+	color: white;
+	box-shadow: none !important;
 }
 
 .save-button:active {
