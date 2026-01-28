@@ -46,7 +46,7 @@ h2 {
 .message {
 	font-size: 15px;
 	line-height: 1.5;
-	color: var(--ion-color-medium);
+	color: #383838;
 	margin: 12px 0 18px;
 }
 
@@ -81,6 +81,7 @@ h2 {
 	}
 
 	.heard-modal::part(content) {
-		background: rgba(30, 30, 30, 0.75);
+		background: rgba(255, 255, 255, 0.75);
+		color: black;
 	}
 }

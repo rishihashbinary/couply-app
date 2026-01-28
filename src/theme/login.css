@@ -1,0 +1,57 @@
+.login-background {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+
+	background-image: url('/public/assets/backgrounds/beautiful-mountains.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+}
+
+/* Content above background */
+.login-content {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	align-items: center;
+}
+
+.login-block {
+	position: relative;
+	z-index: 1;
+	margin-bottom: 16px;
+	background-color: white;
+	padding: 20px;
+	color: black;
+	border-radius: 8px;
+}
+
+.login-button {
+	margin-top: 8vh;
+	position: relative;
+	z-index: 1;
+	height: 60px;
+}
+
+.login-title {
+	font-size: 64px;
+	font-weight: 400;
+	text-align: right;
+	letter-spacing: 21x;
+	color: #2b2b2b;
+	margin-top: 20px;
+}
+
+.login-message {
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	position: relative;
+	align-items: center;
+	font-size: 18px;
+	font-weight: 400;
+	color: #2b2b2b;
+	text-align: justify;
+}

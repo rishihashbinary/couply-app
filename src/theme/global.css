@@ -107,6 +107,16 @@ ion-header {
 	border-radius: 8px;
 }
 
+.block {
+	position: relative;
+	z-index: 1;
+	margin-bottom: 16px;
+	background-color: white;
+	padding: 20px;
+	color: black;
+	border-radius: 8px;
+}
+
 .frosted {
 	background: rgba(255, 255, 255, 0.75);
 	backdrop-filter: blur(12px) saturate(120%);
@@ -136,4 +146,10 @@ ion-header {
 	transform: scale(0.98);
 	/* subtle depth */
 	transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.divider {
+	height: 1px;
+	background-color: var(--ion-color-light-shade);
+	margin: 12px 0;
 }
