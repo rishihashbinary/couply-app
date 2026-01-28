@@ -26,11 +26,12 @@ import type { Profile } from '../models/Profile';
 import { JournalEntriesService } from '../services/JournalEntriesService';
 import { Mood } from '../models/JournalEntry';
 import EmotionCard from '../components/EmotionCard';
+import HeardModal from '../components/HeardModal';
 
 // import { JournalService } from '../services/journal.service';
 
 const moods: { key: Mood; emoji: string; color: string }[] = [
-	{ key: 'Happy', emoji: '😊', color: '#2ecc71' },
+	{ key: 'Happy', emoji: '😊', color: '#1b924d' },
 	{ key: 'Peaceful', emoji: '😌', color: '#3498db' },
 	{ key: 'Neutral', emoji: '😐', color: '#95a5a6' },
 	{ key: 'Difficult', emoji: '😔', color: '#e57373' }
@@ -51,6 +52,7 @@ const Today: React.FC = () => {
 	const [loadingMood, setLoadingMood] = useState(false);
 
 	const [notes, setNotes] = useState('');
+	const [showHeardModal, setShowHeardModal] = useState(false);
 
 	const [saving, setSaving] = useState(false);
 	const [toast, setToast] = useState<{
@@ -94,11 +96,12 @@ const Today: React.FC = () => {
 				notes,
 				moodSource: 'self' // TEMP fixed value
 			});
-			setToast({
-				show: true,
-				message: 'Reflection saved.',
-				color: 'success'
-			});
+			// setToast({
+			// 	show: true,
+			// 	message: 'Reflection saved.',
+			// 	color: 'success'
+			// });
+			setShowHeardModal(true);
 		} catch (error) {
 			console.error(error);
 
@@ -161,7 +164,7 @@ const Today: React.FC = () => {
 
 	return (
 		<IonPage>
-			<IonContent fullscreen className="ion-padding">
+			<IonContent fullscreen className={`ion-padding ${showHeardModal ? 'blurred' : ''}`}>
 				<div className="today-background" />
 				<div className="today-block frosted">
 					{/* Greeting */}
@@ -241,17 +244,18 @@ const Today: React.FC = () => {
 				{/* Mood Grid */}
 				<IonGrid
 					style={{
-						marginTop: '1.5rem',
+						// marginTop: '1.5rem',
 						opacity: loadingMood ? 0.5 : 1,
 						pointerEvents: loadingMood ? 'none' : 'auto'
 					}}
+					className='frosted today-block'
 				>
-					<IonRow>
+					<IonRow class="ion-justify-content-center" >
 						{moods.map(({ key, emoji, color }) => {
 							const isSelected = selectedMood === key;
 							// console.log('Rendering mood:', key, 'isSelected:', isSelected);
 							return (
-								<IonCol size="6" key={key}>
+								<IonCol size="3" key={key}>
 
 									<EmotionCard
 										label={key}
@@ -264,7 +268,13 @@ const Today: React.FC = () => {
 							);
 						})}
 					</IonRow>
+
+					<IonText>
+						<p style={{ marginTop: 8, color: moods.find(m => m.key === selectedMood)?.color, textAlign: 'center', fontWeight: 'bold' }}>{selectedMood}</p>
+					</IonText>
+
 				</IonGrid>
+
 				<div className="today-block frosted">
 					{/* Notes */}
 
@@ -317,6 +327,12 @@ const Today: React.FC = () => {
 					onDidDismiss={() =>
 						setToast((t) => ({ ...t, show: false }))
 					}
+				/>
+				<HeardModal
+					isOpen={showHeardModal}
+					emotion={selectedMood ?? ''}
+					emoji={moods.find(m => m.key === selectedMood)?.emoji || ''}
+					onDismiss={() => setShowHeardModal(false)}
 				/>
 			</IonContent>
 		</IonPage>

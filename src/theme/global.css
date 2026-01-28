@@ -3,6 +3,7 @@
 	height: 40px;
 	color: white;
 	box-shadow: none !important;
+	--box-shadow: none;
 }
 
 .save-button:active {
@@ -115,4 +116,24 @@ ion-header {
 
 	box-shadow:
 		0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.emoji-circle {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	/* vertical centering */
+	justify-content: center;
+	/* horizontal centering */
+	/* font-size: 22px; */
+	/* adjust emoji size */
+}
+
+.blurred {
+	filter: blur(6px);
+	transform: scale(0.98);
+	/* subtle depth */
+	transition: filter 0.25s ease, transform 0.25s ease;
 }

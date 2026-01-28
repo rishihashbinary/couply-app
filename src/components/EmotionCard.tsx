@@ -17,24 +17,30 @@ const EmotionCard: React.FC<EmotionCardProps> = ({ label, emoji, color, isSelect
 			onClick={() => onMoodSelect(label)}
 			style={{
 				textAlign: 'center',
-				padding: '1rem',
-				borderRadius: 8,
+				padding: '0.3rem',
 				background: isSelected ? `${color}` : '#fff',
 				transition: 'all 0.2s ease',
+				boxShadow: 'none',
+				border: isSelected ? '1px solid #ffffff8a' : '1px solid #83818158',
 			}}
+			className='emoji-circle'
 		>
 			<div
 				style={{
-					fontSize: 36,
+					fontSize: 24,
 					transform: isSelected ? 'scale(1.1)' : 'scale(1)',
 					transition: 'transform 0.2s ease',
+					alignItems: 'center',
+					justifyContent: 'center',
+					display: 'flex',
+					marginBottom: '2px'
 				}}
 			>
 				{emoji}
 			</div>
-			<IonText>
+			{/* <IonText>
 				<p style={{ marginTop: 8, color: isSelected ? '#fff' : '#000' }}>{label}</p>
-			</IonText>
+			</IonText> */}
 		</IonCard>
 	);
 };
