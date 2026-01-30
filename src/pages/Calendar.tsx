@@ -15,8 +15,10 @@ import { useAuth } from '../hooks/useAuth';
 const Calendar: React.FC = () => {
 	const [selectedDate, setSelectedDate] = useState<string>();
 	const [entriesByDate, setEntriesByDate] = useState<any>([]);
+	const [entries, setEntries] = useState<any>([]);
 	const [activeEntry, setActiveEntry] = useState<JournalEntry | null>(null);
 	const [showModal, setShowModal] = useState(false);
+	const [selectedEntry, setSelectedEntry] = useState<JournalEntry | null>(null);
 
 	const { user } = useAuth();
 
@@ -35,6 +37,7 @@ const Calendar: React.FC = () => {
 			new Date().getFullYear() + ''
 		);
 		const map: Record<string, Mood> = {};
+		setEntries(entries);
 		entries.forEach((e: JournalEntry) => {
 			map[e.entryDate] = e.mood;
 		});
@@ -49,7 +52,13 @@ const Calendar: React.FC = () => {
 	};
 
 	const onDateSelect = async (date: string) => {
+
+		console.log('Selected date:', date.split('T')[0]);
 		setSelectedDate(date);
+
+		const entry = entries.find((e: JournalEntry) => e.entryDate === date.split('T')[0]);
+		console.log('Selected Entry:', entry);
+		setSelectedEntry(entry || null);
 
 		// const { data } = await supabase
 		//   .from('journal_entries')
@@ -79,7 +88,12 @@ const Calendar: React.FC = () => {
 						presentation="date"
 						value={selectedDate}
 						showDefaultButtons={false}
-						onIonChange={(e) => setSelectedDate(e.detail.value as string)}
+						onIonChange={(event) => {
+							const value = event.detail.value;
+							if (typeof value === 'string') {
+								onDateSelect(value);
+							}
+						}}
 						className="mood-calendar"
 					/>
 				</div>
@@ -91,6 +105,11 @@ const Calendar: React.FC = () => {
 					<Legend color="neutral" label="Neutral" />
 					<Legend color="difficult" label="Difficult" />
 				</div>
+
+				{selectedEntry && <div className='block frosted'>
+					<h3>{selectedEntry.mood}</h3>
+					<p>{selectedEntry.notes}</p>
+				</div>}
 
 				{/* Inject mood map for CSS */}
 				{/* <style>

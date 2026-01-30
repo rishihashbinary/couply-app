@@ -42,29 +42,31 @@ const WeeklyAdviceCard: React.FC<WeeklyAdviceCardProps> = ({ weekStart }) => {
 					Your Weekly Pause
 				</IonCardTitle>
 			</IonCardHeader>
+			{advice && <>
+				<div className='block frosted'>
+					<h2 className="block-title">Insights</h2>
+					<IonText color="medium" className='block-content'>
+						{advice ? advice.insightText : 'Loading your personalized advice...'}
+					</IonText>
 
-			<div className='block frosted'>
-				<h2 className="block-title">Insights</h2>
-				<IonText color="medium" className='block-content'>
-					{advice ? advice.insightText : 'Loading your personalized advice...'}
-				</IonText>
-
-				{/* <div style={{ marginTop: 12, display: 'flex', alignItems: 'center' }}>
+					{/* <div style={{ marginTop: 12, display: 'flex', alignItems: 'center' }}>
 					<IonText color="primary">Read your advice</IonText>
 					<IonIcon
 						icon={chevronForwardOutline}
 						style={{ marginLeft: 6 }}
 					/>
 				</div> */}
-			</div>
-			<div className='block frosted'>
-				<h2 className="block-title">Your next activity</h2>
-				<IonText color="medium" className='block-content'>
-					{advice ? advice.activityText : 'Loading your personalized advice...'}
-				</IonText>
+				</div>
+				<div className='block frosted'>
+					<h2 className="block-title">Your next activity</h2>
+					<IonText color="medium" className='block-content'>
+						{advice ? advice.activityText : 'Loading your personalized advice...'}
+					</IonText>
 
 
-			</div>
+				</div>
+			</>}
+			{!advice && <div className='block frosted block-content'>Your weekly advice is calculated every week, on Sunday, after your daily check-ins are complete. More details in notes will add to better results.</div>}
 		</div>
 	);
 };

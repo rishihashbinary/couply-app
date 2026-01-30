@@ -53,14 +53,14 @@ ion-header {
 		/* --ion-color-primary: #7c8cff; */
 		--ion-color-primary-rgb: 124, 140, 255;
 
-		--ion-background-color: #0f1115;
+		--ion-background-color: #ffffff;
 		--ion-background-color-rgb: 15, 17, 21;
 
-		--ion-text-color: #e6e6e6;
+		--ion-text-color: #121212;
 		--ion-text-color-rgb: 230, 230, 230;
 
-		--ion-card-background: #181b22;
-		--ion-item-background: #181b22;
+		--ion-card-background: #ffffff;
+		--ion-item-background: #ffffff;
 
 		--ion-border-color: #2a2e38;
 	}
