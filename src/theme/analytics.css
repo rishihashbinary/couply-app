@@ -1,5 +1,5 @@
 .analytics-background {
-	position: absolute;
+	position: fixed;
 	inset: 0;
 	z-index: 0;
 
@@ -38,4 +38,8 @@
 	color: #2b2b2b;
 	border-radius: 8px;
 	text-align: justify;
+}
+
+.formatted-text {
+	white-space: pre-line;
 }

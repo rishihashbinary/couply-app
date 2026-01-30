@@ -44,8 +44,16 @@ const WeeklyAdviceCard: React.FC<WeeklyAdviceCardProps> = ({ weekStart }) => {
 			</IonCardHeader>
 			{advice && <>
 				<div className='block frosted'>
+					<h2 className="block-title">Mirror</h2>
+					<IonText color="medium" className='block-content formatted-text'>
+						{advice ? advice.mirrorText : 'Loading your personalized advice...'}
+					</IonText>
+
+
+				</div>
+				<div className='block frosted'>
 					<h2 className="block-title">Insights</h2>
-					<IonText color="medium" className='block-content'>
+					<IonText color="medium" className='block-content formatted-text'>
 						{advice ? advice.insightText : 'Loading your personalized advice...'}
 					</IonText>
 
@@ -59,7 +67,7 @@ const WeeklyAdviceCard: React.FC<WeeklyAdviceCardProps> = ({ weekStart }) => {
 				</div>
 				<div className='block frosted'>
 					<h2 className="block-title">Your next activity</h2>
-					<IonText color="medium" className='block-content'>
+					<IonText color="medium" className='block-content formatted-text'>
 						{advice ? advice.activityText : 'Loading your personalized advice...'}
 					</IonText>
 
