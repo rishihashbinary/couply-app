@@ -107,8 +107,8 @@ const Calendar: React.FC = () => {
 				</div>
 
 				{selectedEntry && <div className='block frosted'>
-					<h3>{selectedEntry.mood}</h3>
-					<p>{selectedEntry.notes}</p>
+					<div className="page-title">{selectedEntry.mood}</div>
+					{selectedEntry.notes && <p>{selectedEntry.notes}</p>}
 				</div>}
 
 				{/* Inject mood map for CSS */}

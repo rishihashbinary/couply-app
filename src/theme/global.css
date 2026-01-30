@@ -153,3 +153,9 @@ ion-header {
 	background-color: var(--ion-color-light-shade);
 	margin: 12px 0;
 }
+
+ion-datetime::part(calendar-day) {
+	margin: 4px;
+	/* creates space between circles */
+	border-radius: 50%;
+}
