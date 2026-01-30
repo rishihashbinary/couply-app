@@ -70,9 +70,10 @@ const Calendar: React.FC = () => {
 		<IonPage>
 
 			<IonContent className="ion-padding calendar-page">
-				<p className="subtitle">Your emotional journey</p>
+				<div className="calendar-background" />
+				<p className="page-title block frosted">Your emotional journey</p>
 
-				<div className="calendar-wrapper">
+				<div className="calendar-wrapper block frosted">
 					<IonDatetime
 						highlightedDates={entriesByDate}
 						presentation="date"
@@ -84,7 +85,7 @@ const Calendar: React.FC = () => {
 				</div>
 
 				{/* Legend */}
-				<div className="legend">
+				<div className="legend block frosted">
 					<Legend color="happy" label="Happy" />
 					<Legend color="peaceful" label="Peaceful" />
 					<Legend color="neutral" label="Neutral" />

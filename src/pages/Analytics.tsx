@@ -1,5 +1,6 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/react';
 import WeeklyAdviceCard from '../components/WeeklyAdviceCard';
+import '../theme/analytics.css';
 
 const Analytics: React.FC = () => {
 	const isSunday = 1;//new Date().getDay() === 0; // Sunday = 0
@@ -11,9 +12,11 @@ const Analytics: React.FC = () => {
 				</IonToolbar>
 			</IonHeader> */}
 
-			<IonContent className="ion-padding">
+			<IonContent className="ion-padding analytics-content">
+				<div className="analytics-background" />
 				{isSunday && <WeeklyAdviceCard weekStart="2026-01-20" />}
 			</IonContent>
+
 		</IonPage>
 	);
 };

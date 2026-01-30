@@ -284,7 +284,7 @@ const Today: React.FC = () => {
 						label="Notes"
 						labelPlacement="floating"
 						counter={true}
-						maxlength={200}
+						maxlength={400}
 						rows={4}
 						counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}
 						value={notes}
