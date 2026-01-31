@@ -42,7 +42,7 @@ export const WeeklyAdviceService = {
 			.from('weekly_advice')
 			.select('*')
 			.eq('user_id', userId)
-			.order('week_start_date', { ascending: false })
+			.order('created_at', { ascending: false })
 			.limit(1)
 			.maybeSingle();
 

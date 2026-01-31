@@ -28,7 +28,7 @@ const AuthCallback: React.FC = () => {
 
 				const user = data.session.user;
 
-				console.log('Session User', user);
+				// console.log('Session User', user);
 
 				// 2. Build domain Profile (camelCase, app-friendly)
 				const profile: Profile = {
@@ -38,7 +38,7 @@ const AuthCallback: React.FC = () => {
 					avatarUrl: user.user_metadata?.avatar_url
 				};
 
-				console.log('Authenticated user:', profile);
+				// console.log('Authenticated user:', profile);
 
 				// 3. Persist via service (mapper used internally)
 				await ProfilesService.upsert(profile);

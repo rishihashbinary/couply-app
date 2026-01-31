@@ -31,7 +31,9 @@ const WeeklyAdviceCard: React.FC<WeeklyAdviceCardProps> = ({ weekStart }) => {
 	};
 
 	useEffect(() => {
-		fetchWeeklyAdvice();
+		if (user?.id) {
+			fetchWeeklyAdvice();
+		}
 	}, [user?.id]);
 
 	return (

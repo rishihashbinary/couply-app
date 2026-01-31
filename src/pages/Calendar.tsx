@@ -22,7 +22,7 @@ const Calendar: React.FC = () => {
 
 	const { user } = useAuth();
 
-	console.log('User', user);
+	// console.log('User', user);
 
 	useEffect(() => {
 		if (user) {
@@ -47,7 +47,7 @@ const Calendar: React.FC = () => {
 
 
 		const highlightedDates = entries.map((e) => { return { date: e.entryDate, mood: e.mood, backgroundColor: `var(--mood-${e.mood.toLowerCase()})`, textColor: `white` } });
-		console.log('Entries map', highlightedDates);
+		// console.log('Entries map', highlightedDates);
 		setEntriesByDate(highlightedDates);
 	};
 
