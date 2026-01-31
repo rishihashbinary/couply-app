@@ -11,6 +11,7 @@ import { useHistory } from 'react-router';
 import { WeeklyAdviceService } from '../services/WeeklyAdvice';
 import { useAuth } from '../hooks/useAuth';
 import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 interface WeeklyAdviceCardProps {
 	weekStart: string; // e.g. 2026-01-20
@@ -39,7 +40,7 @@ const WeeklyAdviceCard: React.FC<WeeklyAdviceCardProps> = ({ weekStart }) => {
 			<IonCardHeader className='block frosted'>
 				<IonCardTitle className="page-title" >
 					<IonIcon icon={sparklesOutline} style={{ marginRight: 8 }} />
-					Your Weekly Pause
+					Reflections as of {moment(advice?.createdAt).format('ll')}
 				</IonCardTitle>
 			</IonCardHeader>
 			{advice && <>

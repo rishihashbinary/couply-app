@@ -9,7 +9,7 @@ import {
 import { Route, Redirect } from 'react-router-dom';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { today, calendar, pieChart, person } from 'ionicons/icons';
+import { today, calendar, pieChart, person, eyeOff, eyeOutline, bulb } from 'ionicons/icons';
 
 import Today from '../pages/Today';
 import Calendar from '../pages/Calendar';
@@ -38,8 +38,8 @@ const AppRoutes = () => (
 			</IonTabButton>
 
 			<IonTabButton tab="analytics" href="/analytics">
-				<IonIcon icon={pieChart} />
-				<IonLabel>Analytics</IonLabel>
+				<IonIcon icon={bulb} />
+				<IonLabel>Reflections</IonLabel>
 			</IonTabButton>
 
 			<IonTabButton tab="profile" href="/profile">
