@@ -75,7 +75,7 @@ const MoodResponses = ({ mood, onSelect }: Props) => {
 
 	return (
 		<>
-			<IonText color="light" className="ion-margin-top">
+			<IonText className="ion-margin-top" style={{ color: 'black' }}>
 				<p>Tap what feels true right now</p>
 			</IonText>
 
@@ -85,9 +85,9 @@ const MoodResponses = ({ mood, onSelect }: Props) => {
 						<IonCol size="12" key={idx}>
 							<IonChip
 								onClick={() => toggleSelection(text)}
-								color={selected.includes(text) ? 'dark' : 'light'}
+								// color={selected.includes(text) ? 'dark' : 'light'}
 								outline={!selected.includes(text)}
-								style={{ backgroundColor: selected.includes(text) ? 'var(--ion-color-primary)' : 'transparent' }}
+								style={{ borderColor: 'black', backgroundColor: selected.includes(text) ? 'var(--ion-color-primary)' : 'transparent', color: selected.includes(text) ? 'white' : 'black' }}
 							>
 								<div>{text}</div>
 							</IonChip>
