@@ -34,7 +34,7 @@ export const JournalEntriesService = {
 		// 	.toISOString()
 		// 	.split('T')[0];
 
-		const endDate = `${year}-${month}-${new Date(Number(year), Number(month), 0).getDate()}`;
+		const endDate = `${year}-${month}-${new Date(Number(year), Number(month), 0).getDate()}`; // TODO: change this to stat and end date of the month
 
 		const { data, error } = await supabase
 			.from('journal_entries')
