@@ -9,3 +9,20 @@ http://ionicframework.com/docs/theming/ */
 	--ion-color-primary: #b54e57e1;
 	--ion-color-primary-rgb: 242, 147, 164;
 }
+
+:root.dark {
+	--ion-background-color: #ffffff;
+	/* soft black */
+	--ion-text-color: #212121;
+	/* light gray */
+
+	--ion-card-background: #ffffff;
+	/* slightly raised surface */
+	--ion-item-background: #fcfcfc;
+
+	/* Softer primary in dark mode */
+	--ion-color-primary: #b54e57e1;
+	--ion-color-primary-rgb: 242, 147, 164;
+
+	--ion-border-color: #262b36;
+}

@@ -1,3 +1,8 @@
+body {
+	background: #ffffff;
+	color-scheme: light;
+}
+
 .save-button {
 	transition: transform 0.15s ease, opacity 0.15s ease;
 	height: 40px;
@@ -46,25 +51,6 @@ ion-header {
 	padding-top: var(--safe-top);
 }
 
-
-
-@media (prefers-color-scheme: dark) {
-	body {
-		/* --ion-color-primary: #7c8cff; */
-		--ion-color-primary-rgb: 124, 140, 255;
-
-		--ion-background-color: #ffffff;
-		--ion-background-color-rgb: 15, 17, 21;
-
-		--ion-text-color: #121212;
-		--ion-text-color-rgb: 230, 230, 230;
-
-		--ion-card-background: #ffffff;
-		--ion-item-background: #ffffff;
-
-		--ion-border-color: #2a2e38;
-	}
-}
 
 .safe-content {
 	--padding-bottom: calc(56px + env(safe-area-inset-bottom));
@@ -158,4 +144,8 @@ ion-datetime::part(calendar-day) {
 	margin: 4px;
 	/* creates space between circles */
 	border-radius: 50%;
+}
+
+html {
+	color-scheme: light;
 }

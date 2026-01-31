@@ -27,6 +27,7 @@ import { JournalEntriesService } from '../services/JournalEntriesService';
 import { Mood } from '../models/JournalEntry';
 import EmotionCard from '../components/EmotionCard';
 import HeardModal from '../components/HeardModal';
+import MoodResponses from '../components/MoodResponses';
 
 // import { JournalService } from '../services/journal.service';
 
@@ -52,6 +53,7 @@ const Today: React.FC = () => {
 	const [loadingMood, setLoadingMood] = useState(false);
 
 	const [notes, setNotes] = useState('');
+	const [moodResponses, setMoodResponses] = useState<string[]>([]);
 	const [showHeardModal, setShowHeardModal] = useState(false);
 
 	const [saving, setSaving] = useState(false);
@@ -87,13 +89,17 @@ const Today: React.FC = () => {
 	};
 
 	const onSave = async () => {
+		const moodResponsesCombined = moodResponses.join('; ');
+		const notesWithResponses = notes
+			? `${notes}\n\nReflections: ${moodResponsesCombined}`
+			: `Reflections: ${moodResponsesCombined}`;
 		try {
 			setSaving(true);
 			await JournalEntriesService.upsertMood({
 				userId: user.id,
 				entryDate: selectedDate.split('T')[0],
 				mood: selectedMood ?? 'Neutral',
-				notes,
+				notes: notesWithResponses,
 				moodSource: 'self' // TEMP fixed value
 			});
 			// setToast({
@@ -275,13 +281,22 @@ const Today: React.FC = () => {
 
 				</IonGrid>
 
+				{selectedMood && <div className='block frosted'>
+					<MoodResponses
+						mood={(selectedMood?.toLowerCase() as Mood) ?? null}
+						onSelect={(responses: string[]) => {
+							setMoodResponses(responses);
+						}}
+					/>
+				</div>}
+
 				<div className="today-block frosted">
 					{/* Notes */}
 
 					<IonTextarea
 						disabled={!selectedMood}
 						id="notes-input"
-						label="Notes"
+						label="What’s on your mind?"
 						labelPlacement="floating"
 						counter={true}
 						maxlength={400}
