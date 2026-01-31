@@ -26,13 +26,15 @@ export const JournalEntriesService = {
 		const startDate = `${year}-${month}-01`;
 
 		// JS trick: day 0 of next month = last day of current month
-		const endDate = new Date(
-			Number(year),
-			Number(month), // month is 1-based, JS Date expects next month here
-			0
-		)
-			.toISOString()
-			.split('T')[0];
+		// const endDate = new Date(
+		// 	Number(year),
+		// 	Number(month), // month is 1-based, JS Date expects next month here
+		// 	0
+		// )
+		// 	.toISOString()
+		// 	.split('T')[0];
+
+		const endDate = `${year}-${month}-${new Date(Number(year), Number(month), 0).getDate()}`;
 
 		const { data, error } = await supabase
 			.from('journal_entries')

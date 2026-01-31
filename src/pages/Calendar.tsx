@@ -56,6 +56,8 @@ const Calendar: React.FC = () => {
 		console.log('Selected date:', date.split('T')[0]);
 		setSelectedDate(date);
 
+		console.log('All Entries:', entries);
+
 		const entry = entries.find((e: JournalEntry) => e.entryDate === date.split('T')[0]);
 		console.log('Selected Entry:', entry);
 		setSelectedEntry(entry || null);
